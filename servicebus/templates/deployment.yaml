@@ -15,21 +15,21 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
 spec:
   clusterServiceClassExternalName: azure-servicebus
-  clusterServicePlanExternalName: {{ .Values.servicePlan | quote }}
+  clusterServicePlanExternalName: {{ .Values.servicePlan }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ .Release.Name | quote }}
+      app.kubernetes.io/name: {{ .Release.Name }}
   parameters:
-    location: {{ .Values.location | quote }}
+    location: {{ .Values.location }}
     resourceGroup: {{ required "A resource group ( values.resourcegroup ) is required service bus creation" .Values.resourcegroup | quote }}
 ---
 apiVersion: servicecatalog.k8s.io/v1beta1
 kind: ServiceBinding
 metadata:
-   app.kubernetes.io/name: {{ .Release.Name | quote }}
+   app.kubernetes.io/name: {{ .Release.Name }}
    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
    app.kubernetes.io/managed-by: {{ .Release.Service }}
-   app.kubernetes.io/instance: {{ .Release.Name | quote  }}
+   app.kubernetes.io/instance: {{ .Release.Name  }}
 spec:
   instanceRef:
     name: {{ .Release.Name }}-servicebus
