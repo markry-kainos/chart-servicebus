@@ -1,0 +1,37 @@
+---
+#
+# Service Catalog Servicebus queue Instance
+# https://github.com/Azure/open-service-broker-azure/blob/master/docs/modules/servicebus.md
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceInstance
+metadata:
+  name: {{ .Release.name }}-servicebus
+  namespace: ${NAMESPACE}
+  metadata:
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name | quote  }}
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  clusterServiceClassExternalName: azure-servicebus
+  clusterServicePlanExternalName: {{ .Values.servicePlan | quote }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Release.Name | quote }}
+  parameters:
+    location: {{ .Values.location | quote }}
+    resourceGroup: {{ required "A resource group ( values.resourcegroup ) is required service bus creation" .Values.resourcegroup | quote }}
+---
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceBinding
+metadata:
+   app.kubernetes.io/name: {{ .Release.Name | quote }}
+   helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+   app.kubernetes.io/managed-by: {{ .Release.Service }}
+   app.kubernetes.io/instance: {{ .Release.Name | quote  }}
+spec:
+  instanceRef:
+    name: {{ .Release.Name }}-servicebus
+  # map across the connectionString
+  secretName: servicebus-{{ .Release.Name }}-secret
