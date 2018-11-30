@@ -6,7 +6,7 @@ apiVersion: servicecatalog.k8s.io/v1beta1
 kind: ServiceInstance
 metadata:
   name: {{ .Release.name }}-servicebus
-  namespace: ${NAMESPACE}
+  # namespace: ${NAMESPACE} this might be needed but for now left out.
   metadata:
   labels:
     app.kubernetes.io/name: {{ .Release.Name | quote  }}
