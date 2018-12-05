@@ -5,33 +5,36 @@
 apiVersion: servicecatalog.k8s.io/v1beta1
 kind: ServiceInstance
 metadata:
-  name: {{ .Release.name }}-servicebus
-  # namespace: ${NAMESPACE} this might be needed but for now left out.
-  metadata:
-  labels:
-    app.kubernetes.io/name: {{ .Release.Name | quote  }}
+  name: {{ .Release.Name }}-servicebus-instance
+  namespace: {{ .Release.Namespace | default "default" }}
+  labels: 
+    app.kubernetes.io/name: {{ .Release.Name }}
     helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     app.kubernetes.io/instance: {{ .Release.Name }}
 spec:
   clusterServiceClassExternalName: azure-servicebus
-  clusterServicePlanExternalName: {{ .Values.servicePlan }}
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: {{ .Release.Name }}
+  clusterServicePlanExternalName: {{ .Values.serviceplan }}
   parameters:
+#    this does not seem to work at the moment.
+#    tags:
+#      app.kubernetes.io/name: {{ .Release.Name }}
+#      helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
     location: {{ .Values.location }}
     resourceGroup: {{ required "A resource group ( values.resourcegroup ) is required service bus creation" .Values.resourcegroup | quote }}
 ---
 apiVersion: servicecatalog.k8s.io/v1beta1
 kind: ServiceBinding
 metadata:
-   app.kubernetes.io/name: {{ .Release.Name }}
-   helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-   app.kubernetes.io/managed-by: {{ .Release.Service }}
-   app.kubernetes.io/instance: {{ .Release.Name  }}
+  name: {{ .Release.Name }}-servicebus-binding
+  namespace: {{ .Release.Namespace | default "default" }}
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/instance: {{ .Release.Name  }}
 spec:
   instanceRef:
-    name: {{ .Release.Name }}-servicebus
+    name: {{ .Release.Name }}-servicebus-instance
   # map across the connectionString
   secretName: servicebus-{{ .Release.Name }}-secret
