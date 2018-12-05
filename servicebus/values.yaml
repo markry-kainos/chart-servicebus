@@ -2,5 +2,3 @@
 resourcegroup: bulk-scan-aks
 location: uksouth
 serviceplan: basic
-    
-  
