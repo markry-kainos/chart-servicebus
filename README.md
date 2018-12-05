@@ -17,8 +17,8 @@ tbd: tbd
 The following table lists the configurable parameters of the Java chart and their default values.
 
 | Parameter      | Description | Default |
-| -------------- | ----------- | ------- |resourcegroup: bulk-scan-aks
-| location       | location of the PaaS instance of the servicebus to use | `uksouth`
+| -------------- | ----------- | ------- |
+| location       | location of the PaaS instance of the servicebus to use | `uksouth`|
 | serviceplan    | service plan of the PaaS instance to use | `basic`|
 
 ## Development and Testing
