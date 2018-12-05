@@ -12,14 +12,14 @@ We will take small PRs and small features to this chart but more complicated nee
 tbd: tbd
 ```
 
-
 ## Configuration
 
 The following table lists the configurable parameters of the Java chart and their default values.
 
 | Parameter      | Description | Default |
 | -------------- | ----------- | ------- |
-| `tbd`          | tbd         | `tbd`   |
+| location       | location of the PaaS instance of the servicebus to use | `uksouth`|
+| serviceplan    | service plan of the PaaS instance to use | `basic`|
 
 ## Development and Testing
 

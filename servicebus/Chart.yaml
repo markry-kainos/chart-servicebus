@@ -1,0 +1,16 @@
+apiVersion: v1
+description: A Helm chart for HMCTS azure service bus integration
+name: servicebus
+version: 0.0.1
+icon: https://github.com/hmcts/chart-servicebus/raw/master/images/message_icon-32.png
+keywords: 
+- service bus
+- messaging
+- message
+- bus
+- enterpise messaging
+- queue
+- topic
+- subscribe
+- publish
+- amqp

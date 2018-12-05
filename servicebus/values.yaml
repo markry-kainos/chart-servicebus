@@ -1,0 +1,4 @@
+# should probably remove the default resource group?
+resourcegroup: bulk-scan-aks
+location: uksouth
+serviceplan: basic
