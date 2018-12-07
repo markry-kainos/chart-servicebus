@@ -9,8 +9,12 @@ We will take small PRs and small features to this chart but more complicated nee
 ## Example configuration
 
 ```yaml
-tbd: tbd
+resourcegroup:: "your applciation resource group"
+setup:
+  queues:
+   - yourQueue
 ```
+**NOTE**: the queue is required configuratiuon for the service bus to provision the queue required for the application.
 
 ## Configuration
 
@@ -20,6 +24,7 @@ The following table lists the configurable parameters of the Java chart and thei
 | -------------- | ----------- | ------- |
 | location       | location of the PaaS instance of the servicebus to use | `uksouth`|
 | serviceplan    | service plan of the PaaS instance to use | `basic`|
+| setup          | this is a yaml object containing the configuration of your servicebus currently only member is .queues[] which is the list of queues needed| ** REQUUIRED ** |
 
 ## Development and Testing
 
