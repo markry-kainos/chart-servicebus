@@ -1,0 +1,31 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{.Release.Name}}-queue-task"
+  labels:
+    app.kubernetes.io/managed-by: {{.Release.Service | quote }}
+    app.kubernetes.io/instance: {{.Release.Name | quote }}
+    helm.sh/chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+  annotations:
+    helm.sh/hook: "post-install"
+    helm.sh/hook-delete-policy: "hook-succeeded"
+spec:
+  template:
+    metadata:
+      name: {{ .Release.Name }}-queue-task
+      labels:
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/name: {{ .Release.Name }}
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - image: "hmcts/cnp-aks-client:az-2.0.50-kubectl-1.12.2-helm-2.11"
+        name: {{.Release.Name}}-queue-task
+        env:
+          - name: CONNECTION_STRING
+            valueFrom:
+              secretKeyRef:
+                name: servicebus-{{ .Release.Name }}-secret
+                key: connectionString
+        command: [ "bash", "/mount/sb/add_queues.sh", "${CONNECTION_STRING}" ]

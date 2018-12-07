@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-sb-configmap
+data:
+  "add_queues.py": |-
+{{ .Files.Get "add_queues.py" | indent 4 }}
+  "add_queues.sh": |-
+{{ .Files.Get "add_queues.sh" | indent 4 }}
+  "setup.yaml": |-
+{{ toYaml ( required "setup section needs to be supplied to confgure a queue in the servicebus" .Values.setup ) | indent 4 }}
