@@ -24,7 +24,7 @@ The following table lists the configurable parameters of the Java chart and thei
 | -------------- | ----------- | ------- |
 | location       | location of the PaaS instance of the servicebus to use | `uksouth`|
 | serviceplan    | service plan of the PaaS instance to use | `basic`|
-| setup          | this is a yaml object containing the configuration of your servicebus currently only member is .queues[] which is the list of queues needed| ** REQUUIRED ** |
+| setup          | this is a yaml object containing the configuration of your servicebus currently only member is .queues[] which is the list of queues needed| ** REQUIRED ** |
 
 ## Development and Testing
 
