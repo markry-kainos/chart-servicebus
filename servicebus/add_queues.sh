@@ -1,7 +1,9 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash -x
 set -eu
+echo "== Starting queue creation script == "
 pip install azure-servicebus
 pip install pyyaml
-python add_queues.py $1
+echo "Starting queue creation python script"
+python /mount/sb/add_queues.py $1
 
 

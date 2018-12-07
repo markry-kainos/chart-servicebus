@@ -19,13 +19,20 @@ spec:
         app.kubernetes.io/name: {{ .Release.Name }}
     spec:
       restartPolicy: OnFailure
+      volumes:
+        - name: config
+          configMap:
+            name: {{ .Release.Name }}-sb-configmap
       containers:
-      - image: "hmcts/cnp-aks-client:az-2.0.50-kubectl-1.12.2-helm-2.11"
-        name: {{.Release.Name}}-queue-task
-        env:
-          - name: CONNECTION_STRING
-            valueFrom:
-              secretKeyRef:
-                name: servicebus-{{ .Release.Name }}-secret
-                key: connectionString
-        command: [ "bash", "/mount/sb/add_queues.sh", "${CONNECTION_STRING}" ]
+        - image: "hmcts/cnp-aks-client:az-2.0.50-kubectl-1.12.2-helm-2.11"
+          name: {{.Release.Name}}-queue-task
+          volumeMounts:
+            - name: config
+              mountPath: /mount/sb
+          env:
+            - name: CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: servicebus-{{ .Release.Name }}-secret
+                  key: connectionString
+          command: [ "bash", "/mount/sb/add_queues.sh", "${CONNECTION_STRING}" ]
