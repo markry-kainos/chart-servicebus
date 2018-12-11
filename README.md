@@ -19,7 +19,7 @@ The following table lists the configurable parameters of the Java chart and thei
 | Parameter      | Description | Default |
 | -------------- | ----------- | ------- |
 | location       | location of the PaaS instance of the servicebus to use | `uksouth`|
-| serviceplan    | service plan of the PaaS instance to use | `basic`|
+| servicePlan    | service plan of the PaaS instance to use | `basic`|
 
 ## Development and Testing
 

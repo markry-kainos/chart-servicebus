@@ -1,4 +1,6 @@
 # should probably remove the default resource group?
-resourcegroup: bulk-scan-aks
+resourceGroup: bulk-scan-aks
 location: uksouth
-serviceplan: basic
+servicePlan: basic
+namespace: cnp
+queueName: envelopes
